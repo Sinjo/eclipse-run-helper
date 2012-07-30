@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="uk.co.sinjakli.eclipserunhelper.DisplayRunHelperHandler"
+            description="Command which displays the Run Helper Popup"
+            id="uk.co.sinjakli.eclipserunhelper.displayRunHelperCommand"
+            name="Display Run Helper Popup">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="uk.co.sinjakli.eclipserunhelper.DisplayRunHelperHandler"
+            commandId="uk.co.sinjakli.eclipserunhelper.displayRunHelperCommand">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="uk.co.sinjakli.eclipserunhelper.displayRunHelperCommand"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+M2+F11">
+      </key>
+   </extension>
+
+</plugin>
