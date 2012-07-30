@@ -12,6 +12,6 @@ The current keyboard launching options. This includes:
 ## Superior in what way?
 
 * Provide the most useful launching options. Initial ideas:
-** Your last 5 launches (or some other arbitrary number)
-** Your previous JUnit launch
+    * Your last 5 launches (or some other arbitrary number)
+    * Your previous JUnit launch
 * Provide all of these from one keyboard shortcut which brings up an Alt+Shift+X-esque menu
