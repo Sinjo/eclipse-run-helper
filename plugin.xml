@@ -23,7 +23,7 @@
             commandId="uk.co.sinjakli.eclipserunhelper.displayRunHelperCommand"
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M1+M2+F11">
+            sequence="M1+M2+F11 d">
       </key>
    </extension>
 
