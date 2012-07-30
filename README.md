@@ -1,6 +1,6 @@
 # Eclipse Run Helper
 
-An Eclipse plug-in which provides superior keyboard launching support?
+An Eclipse plug-in which provides superior keyboard launching support
 
 ## Superior to what?
 
