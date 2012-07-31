@@ -14,4 +14,5 @@ The current keyboard launching options. This includes:
 * Provide the most useful launching options. Initial ideas:
     * Your last 5 launches (or some other arbitrary number)
     * Your previous JUnit launch
+	* Arbitrary launch config (let the user bind to a key in preferences)
 * Provide all of these from one keyboard shortcut which brings up an Alt+Shift+X-esque menu
