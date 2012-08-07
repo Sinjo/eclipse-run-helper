@@ -4,19 +4,19 @@
    <extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="uk.co.sinjakli.eclipserunhelper.RunLastLaunchHandler"
-            description="Command which runs the previous launch configuration"
-            id="uk.co.sinjakli.eclipserunhelper.runLastLaunch"
-            name="Run Last Launch">
+            defaultHandler="uk.co.sinjakli.eclipserunhelper.DisplayRunHelperHandler"
+            description="Command which displays the Launch Helper dialog"
+            id="uk.co.sinjakli.eclipserunhelper.displayRunHelper"
+            name="Display Run Helper">
       </command>
    </extension>
    <extension
          point="org.eclipse.ui.bindings">
       <key
-            commandId="uk.co.sinjakli.eclipserunhelper.runLastLaunch"
+            commandId="uk.co.sinjakli.eclipserunhelper.displayRunHelper"
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M1+M2+F11 1">
+            sequence="M1+M2+F11">
       </key>
    </extension>
 
