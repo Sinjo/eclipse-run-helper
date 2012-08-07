@@ -7,6 +7,8 @@ import org.eclipse.jface.dialogs.PopupDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
+import uk.co.sinjakli.eclipserunhelper.ui.RunHelperDialog;
+
 public class DisplayRunHelperHandler extends AbstractHandler {
 
 	@Override
@@ -18,9 +20,9 @@ public class DisplayRunHelperHandler extends AbstractHandler {
 				final Shell activeShell = PlatformUI.getWorkbench()
 						.getActiveWorkbenchWindow().getShell();
 
-				final PopupDialog dialog = new PopupDialog(activeShell,
+				final RunHelperDialog dialog = new RunHelperDialog(activeShell,
 						PopupDialog.INFOPOPUPRESIZE_SHELLSTYLE, true, false,
-						false, false, false, "Title", "Info");
+						false, false, false, null, null);
 
 				dialog.open();
 			}
