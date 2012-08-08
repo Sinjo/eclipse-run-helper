@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="uk.co.sinjakli.eclipserunhelper.DisplayRunHelperHandler"
+            defaultHandler="uk.co.sinjakli.eclipserunhelper.handlers.DisplayRunHelperHandler"
             description="Command which displays the Launch Helper dialog"
             id="uk.co.sinjakli.eclipserunhelper.displayRunHelper"
             name="Display Run Helper">

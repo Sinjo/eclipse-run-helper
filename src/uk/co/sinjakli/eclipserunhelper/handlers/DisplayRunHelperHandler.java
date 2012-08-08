@@ -1,4 +1,4 @@
-package uk.co.sinjakli.eclipserunhelper;
+package uk.co.sinjakli.eclipserunhelper.handlers;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
