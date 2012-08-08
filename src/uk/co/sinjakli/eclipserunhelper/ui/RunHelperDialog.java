@@ -37,8 +37,8 @@ public class RunHelperDialog extends PopupDialog {
 		data.heightHint = 200;
 		table.setLayoutData(data);
 
-		new TableColumn(table, SWT.NONE).setText("Col1");
-		new TableColumn(table, SWT.NONE).setText("Col2");
+		new TableColumn(table, SWT.NONE);
+		new TableColumn(table, SWT.NONE);
 		
 		int launchCounter = 1;
 		for (ILaunchConfiguration launchConfiguration : availableLaunches) {
