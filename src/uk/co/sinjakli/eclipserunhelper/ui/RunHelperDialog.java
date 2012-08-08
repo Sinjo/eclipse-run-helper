@@ -2,7 +2,7 @@ package uk.co.sinjakli.eclipserunhelper.ui;
 
 import java.util.List;
 
-import org.eclipse.debug.core.ILaunch;
+import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.jface.dialogs.PopupDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -15,9 +15,9 @@ import org.eclipse.swt.widgets.TableItem;
 
 public class RunHelperDialog extends PopupDialog {
 	
-	private final List<ILaunch> availableLaunches;
+	private final List<ILaunchConfiguration> availableLaunches;
 
-	public RunHelperDialog(final Shell parent, final List<ILaunch> availableLaunches) {
+	public RunHelperDialog(final Shell parent, final List<ILaunchConfiguration> availableLaunches) {
 
 		super(parent, PopupDialog.INFOPOPUP_SHELLSTYLE, true, false,
 				false, false, false, null, null);
@@ -41,9 +41,9 @@ public class RunHelperDialog extends PopupDialog {
 		new TableColumn(table, SWT.NONE).setText("Col2");
 		
 		int launchCounter = 1;
-		for (ILaunch launch : availableLaunches) {
+		for (ILaunchConfiguration launchConfiguration : availableLaunches) {
 			TableItem item = new TableItem(table, SWT.NONE);
-			item.setText(0, launch.getLaunchConfiguration().getName());
+			item.setText(0, launchConfiguration.getName());
 			item.setText(1, String.valueOf(launchCounter));
 			launchCounter++;
 		}

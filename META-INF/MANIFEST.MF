@@ -7,6 +7,6 @@ Bundle-Activator: uk.co.sinjakli.eclipserunhelper.RunHelperPlugin
 Bundle-Vendor: Chris Sinjakli
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.debug.core
+ org.eclipse.debug.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
