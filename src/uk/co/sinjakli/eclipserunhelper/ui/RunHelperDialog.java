@@ -29,7 +29,7 @@ public class RunHelperDialog extends PopupDialog {
 	protected Control createDialogArea(Composite parent) {
 		Composite composite = (Composite) super.createDialogArea(parent);
 
-		Table table = new Table(composite, SWT.SINGLE | SWT.BORDER);
+		Table table = new Table(composite, SWT.SINGLE | SWT.FULL_SELECTION | SWT.BORDER);
 		table.setLinesVisible(true);
 		table.setHeaderVisible(false);
 
