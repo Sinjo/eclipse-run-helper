@@ -19,7 +19,7 @@ import uk.co.sinjakli.eclipserunhelper.ui.RunHelperDialog;
 public class DisplayRunHelperHandler extends AbstractHandler {
 
 	@Override
-	public Object execute(ExecutionEvent event) throws ExecutionException {
+	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		final ILaunchConfiguration[] launchHistory = DebugUIPlugin.getDefault()
 				.getLaunchConfigurationManager()
 				.getLaunchHistory(IDebugUIConstants.ID_RUN_LAUNCH_GROUP)

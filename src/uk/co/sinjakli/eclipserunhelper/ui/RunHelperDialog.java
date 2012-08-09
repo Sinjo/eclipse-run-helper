@@ -29,36 +29,36 @@ public class RunHelperDialog extends PopupDialog {
 	}
 
 	@Override
-	protected Control createDialogArea(Composite parent) {
-		Composite composite = (Composite) super.createDialogArea(parent);
+	protected Control createDialogArea(final Composite parent) {
+		final Composite composite = (Composite) super.createDialogArea(parent);
 
-		Table table = new Table(composite, SWT.SINGLE | SWT.FULL_SELECTION | SWT.BORDER);
+		final Table table = new Table(composite, SWT.SINGLE | SWT.FULL_SELECTION | SWT.BORDER);
 		table.setLinesVisible(true);
 		table.setHeaderVisible(false);
 
-		GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);
+		final GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);
 		table.setLayoutData(data);
 
-		TableColumn launchNameColumn = new TableColumn(table, SWT.NONE);
-		TableColumn keyBindingColumn = new TableColumn(table, SWT.NONE);
+		final TableColumn launchNameColumn = new TableColumn(table, SWT.NONE);
+		final TableColumn keyBindingColumn = new TableColumn(table, SWT.NONE);
 		
-		TableViewer viewer = new TableViewer(table);
+		final TableViewer viewer = new TableViewer(table);
 		viewer.setContentProvider(ArrayContentProvider.getInstance());
 		viewer.setInput(availableLaunches);
 		
-		TableViewerColumn launchNameColumnViewer = new TableViewerColumn(viewer, launchNameColumn);
+		final TableViewerColumn launchNameColumnViewer = new TableViewerColumn(viewer, launchNameColumn);
 		launchNameColumnViewer.setLabelProvider(new ColumnLabelProvider() {
 			@Override
-			public String getText(Object element) {
-				ILaunchConfiguration launchConfiguration = (ILaunchConfiguration) element;
+			public String getText(final Object element) {
+				final ILaunchConfiguration launchConfiguration = (ILaunchConfiguration) element;
 				return launchConfiguration.getName();
 			}
 		});
 		
-		TableViewerColumn keyBindingColumnViewer = new TableViewerColumn(viewer, keyBindingColumn);
+		final TableViewerColumn keyBindingColumnViewer = new TableViewerColumn(viewer, keyBindingColumn);
 		keyBindingColumnViewer.setLabelProvider(new ColumnLabelProvider() {
 			@Override
-			public String getText(Object element) {
+			public String getText(final Object element) {
 				return "1";
 			}
 		});
