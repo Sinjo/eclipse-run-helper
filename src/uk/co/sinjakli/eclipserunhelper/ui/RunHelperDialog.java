@@ -60,7 +60,7 @@ public class RunHelperDialog extends PopupDialog {
 			@Override
 			public String getText(final Object element) {
 				final ILaunchConfiguration launchConfiguration = (ILaunchConfiguration) element;
-				return launchConfiguration.getName();
+				return "Run " + launchConfiguration.getName();
 			}
 		});
 		
