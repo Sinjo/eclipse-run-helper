@@ -1,5 +1,8 @@
 package uk.co.sinjakli.eclipserunhelper;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -45,6 +48,10 @@ public class RunHelperPlugin extends AbstractUIPlugin {
 	 */
 	public static RunHelperPlugin getDefault() {
 		return plugin;
+	}
+
+	public static IStatus errorStatus(String message, Throwable t) {
+		return new Status(IStatus.ERROR, PLUGIN_ID, message, t);
 	}
 
 }

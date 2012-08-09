@@ -2,10 +2,17 @@ package uk.co.sinjakli.eclipserunhelper.ui;
 
 import java.util.Map;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.ILog;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.jface.dialogs.PopupDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
@@ -15,6 +22,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+
+import uk.co.sinjakli.eclipserunhelper.RunHelperPlugin;
 
 public class RunHelperDialog extends PopupDialog {
 	
@@ -42,11 +51,11 @@ public class RunHelperDialog extends PopupDialog {
 		final TableColumn launchNameColumn = new TableColumn(table, SWT.NONE);
 		final TableColumn keyBindingColumn = new TableColumn(table, SWT.NONE);
 		
-		final TableViewer viewer = new TableViewer(table);
-		viewer.setContentProvider(ArrayContentProvider.getInstance());
-		viewer.setInput(availableLaunches.keySet());
+		final TableViewer tableViewer = new TableViewer(table);
+		tableViewer.setContentProvider(ArrayContentProvider.getInstance());
+		tableViewer.setInput(availableLaunches.keySet());
 		
-		final TableViewerColumn launchNameColumnViewer = new TableViewerColumn(viewer, launchNameColumn);
+		final TableViewerColumn launchNameColumnViewer = new TableViewerColumn(tableViewer, launchNameColumn);
 		launchNameColumnViewer.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(final Object element) {
@@ -55,16 +64,32 @@ public class RunHelperDialog extends PopupDialog {
 			}
 		});
 		
-		final TableViewerColumn keyBindingColumnViewer = new TableViewerColumn(viewer, keyBindingColumn);
+		final TableViewerColumn keyBindingColumnViewer = new TableViewerColumn(tableViewer, keyBindingColumn);
 		keyBindingColumnViewer.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(final Object element) {
 				return availableLaunches.get(element);
 			}
 		});
+		
+		tableViewer.addDoubleClickListener(new IDoubleClickListener() {
+			
+			@Override
+			public void doubleClick(final DoubleClickEvent event) {
+				final IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+				final ILaunchConfiguration launchConfiguration = (ILaunchConfiguration) selection.getFirstElement();
+				try {
+					launchConfiguration.launch(ILaunchManager.RUN_MODE, null);
+				} catch (final CoreException e) {
+					final ILog logger = RunHelperPlugin.getDefault().getLog();
+					final IStatus errorStatus = RunHelperPlugin.errorStatus("Error launching selected configuration.", e);
+					logger.log(errorStatus);
+				}
+			}
+		});
 
 		// Needed so that eclipse updates table based on our label providers
-		viewer.refresh();
+		tableViewer.refresh();
 		
 		table.getColumn(0).pack();
 		table.getColumn(1).pack();
