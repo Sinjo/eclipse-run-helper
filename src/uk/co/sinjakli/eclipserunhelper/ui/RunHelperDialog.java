@@ -4,6 +4,10 @@ import java.util.List;
 
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.jface.dialogs.PopupDialog;
+import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
@@ -11,7 +15,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.TableItem;
 
 public class RunHelperDialog extends PopupDialog {
 	
@@ -34,20 +37,35 @@ public class RunHelperDialog extends PopupDialog {
 		table.setHeaderVisible(false);
 
 		GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);
-		data.heightHint = 200;
 		table.setLayoutData(data);
 
-		new TableColumn(table, SWT.NONE);
-		new TableColumn(table, SWT.NONE);
+		TableColumn launchNameColumn = new TableColumn(table, SWT.NONE);
+		TableColumn keyBindingColumn = new TableColumn(table, SWT.NONE);
 		
-		int launchCounter = 1;
-		for (ILaunchConfiguration launchConfiguration : availableLaunches) {
-			TableItem item = new TableItem(table, SWT.NONE);
-			item.setText(0, launchConfiguration.getName());
-			item.setText(1, String.valueOf(launchCounter));
-			launchCounter++;
-		}
+		TableViewer viewer = new TableViewer(table);
+		viewer.setContentProvider(ArrayContentProvider.getInstance());
+		viewer.setInput(availableLaunches);
+		
+		TableViewerColumn launchNameColumnViewer = new TableViewerColumn(viewer, launchNameColumn);
+		launchNameColumnViewer.setLabelProvider(new ColumnLabelProvider() {
+			@Override
+			public String getText(Object element) {
+				ILaunchConfiguration launchConfiguration = (ILaunchConfiguration) element;
+				return launchConfiguration.getName();
+			}
+		});
+		
+		TableViewerColumn keyBindingColumnViewer = new TableViewerColumn(viewer, keyBindingColumn);
+		keyBindingColumnViewer.setLabelProvider(new ColumnLabelProvider() {
+			@Override
+			public String getText(Object element) {
+				return "1";
+			}
+		});
 
+		// Needed so that eclipse updates table based on our label providers
+		viewer.refresh();
+		
 		table.getColumn(0).pack();
 		table.getColumn(1).pack();
 
