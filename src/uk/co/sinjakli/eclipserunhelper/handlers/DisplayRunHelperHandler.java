@@ -1,8 +1,7 @@
 package uk.co.sinjakli.eclipserunhelper.handlers;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -24,9 +23,13 @@ public class DisplayRunHelperHandler extends AbstractHandler {
 				.getLaunchConfigurationManager()
 				.getLaunchHistory(IDebugUIConstants.ID_RUN_LAUNCH_GROUP)
 				.getHistory();
-
-		final List<ILaunchConfiguration> availableLaunches = new ArrayList<ILaunchConfiguration>();
-		availableLaunches.addAll(Arrays.asList(launchHistory));
+		
+		final Map<ILaunchConfiguration, String> availableLaunches = new LinkedHashMap<ILaunchConfiguration, String>();
+		int launchIndex = 1;
+		for (ILaunchConfiguration launchConfiguration : launchHistory) {
+			availableLaunches.put(launchConfiguration, String.valueOf(launchIndex));
+			launchIndex++;
+		}
 
 		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 

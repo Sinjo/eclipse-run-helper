@@ -1,6 +1,6 @@
 package uk.co.sinjakli.eclipserunhelper.ui;
 
-import java.util.List;
+import java.util.Map;
 
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.jface.dialogs.PopupDialog;
@@ -18,9 +18,9 @@ import org.eclipse.swt.widgets.TableColumn;
 
 public class RunHelperDialog extends PopupDialog {
 	
-	private final List<ILaunchConfiguration> availableLaunches;
+	private final Map<ILaunchConfiguration, String> availableLaunches;
 
-	public RunHelperDialog(final Shell parent, final List<ILaunchConfiguration> availableLaunches) {
+	public RunHelperDialog(final Shell parent, final Map<ILaunchConfiguration, String> availableLaunches) {
 
 		super(parent, PopupDialog.INFOPOPUP_SHELLSTYLE, true, false,
 				false, false, false, null, null);
@@ -44,7 +44,7 @@ public class RunHelperDialog extends PopupDialog {
 		
 		final TableViewer viewer = new TableViewer(table);
 		viewer.setContentProvider(ArrayContentProvider.getInstance());
-		viewer.setInput(availableLaunches);
+		viewer.setInput(availableLaunches.keySet());
 		
 		final TableViewerColumn launchNameColumnViewer = new TableViewerColumn(viewer, launchNameColumn);
 		launchNameColumnViewer.setLabelProvider(new ColumnLabelProvider() {
@@ -59,7 +59,7 @@ public class RunHelperDialog extends PopupDialog {
 		keyBindingColumnViewer.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(final Object element) {
-				return "1";
+				return availableLaunches.get(element);
 			}
 		});
 
