@@ -80,6 +80,7 @@ public class RunHelperDialog extends PopupDialog {
 				final ILaunchConfiguration launchConfiguration = (ILaunchConfiguration) selection.getFirstElement();
 				try {
 					launchConfiguration.launch(ILaunchManager.RUN_MODE, null);
+					RunHelperDialog.this.close();
 				} catch (final CoreException e) {
 					final ILog logger = RunHelperPlugin.getDefault().getLog();
 					final IStatus errorStatus = RunHelperPlugin.errorStatus("Error launching selected configuration.", e);
