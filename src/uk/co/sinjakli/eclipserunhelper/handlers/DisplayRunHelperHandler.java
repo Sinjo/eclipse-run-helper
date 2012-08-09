@@ -23,10 +23,10 @@ public class DisplayRunHelperHandler extends AbstractHandler {
 				.getLaunchConfigurationManager()
 				.getLaunchHistory(IDebugUIConstants.ID_RUN_LAUNCH_GROUP)
 				.getHistory();
-		
+
 		final Map<ILaunchConfiguration, String> availableLaunches = new LinkedHashMap<ILaunchConfiguration, String>();
 		int launchIndex = 1;
-		for (ILaunchConfiguration launchConfiguration : launchHistory) {
+		for (final ILaunchConfiguration launchConfiguration : launchHistory) {
 			availableLaunches.put(launchConfiguration, String.valueOf(launchIndex));
 			launchIndex++;
 		}

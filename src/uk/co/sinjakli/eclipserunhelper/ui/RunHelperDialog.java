@@ -26,14 +26,14 @@ import org.eclipse.swt.widgets.TableColumn;
 import uk.co.sinjakli.eclipserunhelper.RunHelperPlugin;
 
 public class RunHelperDialog extends PopupDialog {
-	
+
 	private final Map<ILaunchConfiguration, String> availableLaunches;
 
 	public RunHelperDialog(final Shell parent, final Map<ILaunchConfiguration, String> availableLaunches) {
 
 		super(parent, PopupDialog.INFOPOPUP_SHELLSTYLE, true, false,
 				false, false, false, null, null);
-		
+
 		this.availableLaunches = availableLaunches;
 	}
 
@@ -50,11 +50,11 @@ public class RunHelperDialog extends PopupDialog {
 
 		final TableColumn launchNameColumn = new TableColumn(table, SWT.NONE);
 		final TableColumn keyBindingColumn = new TableColumn(table, SWT.NONE);
-		
+
 		final TableViewer tableViewer = new TableViewer(table);
 		tableViewer.setContentProvider(ArrayContentProvider.getInstance());
 		tableViewer.setInput(availableLaunches.keySet());
-		
+
 		final TableViewerColumn launchNameColumnViewer = new TableViewerColumn(tableViewer, launchNameColumn);
 		launchNameColumnViewer.setLabelProvider(new ColumnLabelProvider() {
 			@Override
@@ -63,7 +63,7 @@ public class RunHelperDialog extends PopupDialog {
 				return "Run " + launchConfiguration.getName();
 			}
 		});
-		
+
 		final TableViewerColumn keyBindingColumnViewer = new TableViewerColumn(tableViewer, keyBindingColumn);
 		keyBindingColumnViewer.setLabelProvider(new ColumnLabelProvider() {
 			@Override
@@ -71,9 +71,9 @@ public class RunHelperDialog extends PopupDialog {
 				return availableLaunches.get(element);
 			}
 		});
-		
+
 		tableViewer.addDoubleClickListener(new IDoubleClickListener() {
-			
+
 			@Override
 			public void doubleClick(final DoubleClickEvent event) {
 				final IStructuredSelection selection = (IStructuredSelection) event.getSelection();
@@ -91,7 +91,7 @@ public class RunHelperDialog extends PopupDialog {
 
 		// Needed so that eclipse updates table based on our label providers
 		tableViewer.refresh();
-		
+
 		table.getColumn(0).pack();
 		table.getColumn(1).pack();
 
