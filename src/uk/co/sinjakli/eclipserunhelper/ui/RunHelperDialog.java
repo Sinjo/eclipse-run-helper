@@ -24,6 +24,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -160,6 +162,15 @@ public class RunHelperDialog extends PopupDialog {
 			}
 		}
 
+	}
+
+	@Override
+	protected Point getInitialLocation(final Point initialSize) {
+		final Composite parent = getParentShell();
+		final Rectangle parentBounds = parent.getBounds();
+
+		return new Point(parentBounds.width + parent.getLocation().x- initialSize.x - 10 ,
+				parentBounds.height + parent.getLocation().y - initialSize.y - 10);
 	}
 
 	@Override
