@@ -91,15 +91,15 @@ public class RunHelperDialog extends PopupDialog {
 
 			@Override
 			public void keyPressed(final KeyEvent e) {
-				if (isEnterKey(e)) {
+				if (isEnterKey(e.keyCode)) {
 					final TableItem tableSelection = table.getSelection()[0];
 					final ILaunchConfiguration launchConfiguration = (ILaunchConfiguration) tableSelection.getData();
 					launchAndCloseDialog(launchConfiguration);
 				}
 			}
 
-			private boolean isEnterKey(final KeyEvent e) {
-				return e.keyCode == SWT.CR || e.keyCode == SWT.LF;
+			private boolean isEnterKey(final int keyCode) {
+				return keyCode == SWT.CR || keyCode == SWT.LF;
 			}
 		});
 
