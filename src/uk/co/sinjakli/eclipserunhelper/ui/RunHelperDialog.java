@@ -1,6 +1,7 @@
 package uk.co.sinjakli.eclipserunhelper.ui;
 
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.ILog;
@@ -95,6 +96,8 @@ public class RunHelperDialog extends PopupDialog {
 					final TableItem tableSelection = table.getSelection()[0];
 					final ILaunchConfiguration launchConfiguration = (ILaunchConfiguration) tableSelection.getData();
 					launchAndCloseDialog(launchConfiguration);
+				} else {
+					launchByCharacter(e.character);
 				}
 			}
 
@@ -125,6 +128,16 @@ public class RunHelperDialog extends PopupDialog {
 		}
 
 		RunHelperDialog.this.close();
+	}
+
+	private void launchByCharacter(final char keyCharacter) {
+		final String keyString = String.valueOf(keyCharacter);
+		for (final Entry<ILaunchConfiguration, String> launchBinding : availableLaunches.entrySet()) {
+			if (launchBinding.getValue().equals(keyString)) {
+				launchAndCloseDialog(launchBinding.getKey());
+			}
+		}
+
 	}
 
 }
