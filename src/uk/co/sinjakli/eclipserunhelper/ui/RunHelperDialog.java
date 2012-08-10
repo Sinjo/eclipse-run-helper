@@ -24,6 +24,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
 
 import uk.co.sinjakli.eclipserunhelper.RunHelperPlugin;
 
@@ -90,10 +91,15 @@ public class RunHelperDialog extends PopupDialog {
 
 			@Override
 			public void keyPressed(final KeyEvent e) {
-				if (e.keyCode == SWT.CR || e.keyCode == SWT.LF) {
-					final ILaunchConfiguration launchConfiguration = (ILaunchConfiguration) table.getSelection()[0].getData();
+				if (isEnterKey(e)) {
+					final TableItem tableSelection = table.getSelection()[0];
+					final ILaunchConfiguration launchConfiguration = (ILaunchConfiguration) tableSelection.getData();
 					launchAndCloseDialog(launchConfiguration);
 				}
+			}
+
+			private boolean isEnterKey(final KeyEvent e) {
+				return e.keyCode == SWT.CR || e.keyCode == SWT.LF;
 			}
 		});
 
