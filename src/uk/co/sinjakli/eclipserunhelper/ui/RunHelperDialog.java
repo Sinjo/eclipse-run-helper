@@ -30,6 +30,7 @@ import uk.co.sinjakli.eclipserunhelper.RunHelperPlugin;
 public class RunHelperDialog extends PopupDialog {
 
 	private final Map<ILaunchConfiguration, String> availableLaunches;
+	private final ILog logger;
 
 	public RunHelperDialog(final Shell parent, final Map<ILaunchConfiguration, String> availableLaunches) {
 
@@ -37,6 +38,7 @@ public class RunHelperDialog extends PopupDialog {
 				false, false, false, null, null);
 
 		this.availableLaunches = availableLaunches;
+		logger = RunHelperPlugin.getDefault().getLog();
 	}
 
 	@Override
@@ -80,14 +82,7 @@ public class RunHelperDialog extends PopupDialog {
 			public void doubleClick(final DoubleClickEvent event) {
 				final IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 				final ILaunchConfiguration launchConfiguration = (ILaunchConfiguration) selection.getFirstElement();
-				try {
-					launchConfiguration.launch(ILaunchManager.RUN_MODE, null);
-					RunHelperDialog.this.close();
-				} catch (final CoreException e) {
-					final ILog logger = RunHelperPlugin.getDefault().getLog();
-					final IStatus errorStatus = RunHelperPlugin.errorStatus("Error launching selected configuration.", e);
-					logger.log(errorStatus);
-				}
+				launchAndCloseDialog(launchConfiguration);
 			}
 		});
 
@@ -97,14 +92,7 @@ public class RunHelperDialog extends PopupDialog {
 			public void keyPressed(final KeyEvent e) {
 				if (e.keyCode == SWT.CR || e.keyCode == SWT.LF) {
 					final ILaunchConfiguration launchConfiguration = (ILaunchConfiguration) table.getSelection()[0].getData();
-					try {
-						launchConfiguration.launch(ILaunchManager.RUN_MODE, null);
-						RunHelperDialog.this.close();
-					} catch (final CoreException ex) {
-						final ILog logger = RunHelperPlugin.getDefault().getLog();
-						final IStatus errorStatus = RunHelperPlugin.errorStatus("Error launching selected configuration.", ex);
-						logger.log(errorStatus);
-					}
+					launchAndCloseDialog(launchConfiguration);
 				}
 			}
 		});
@@ -120,6 +108,17 @@ public class RunHelperDialog extends PopupDialog {
 		table.setSelection(0);
 
 		return composite;
+	}
+
+	private void launchAndCloseDialog(final ILaunchConfiguration launchConfiguration) {
+		try {
+			launchConfiguration.launch(ILaunchManager.RUN_MODE, null);
+		} catch (final CoreException ex) {
+			final IStatus errorStatus = RunHelperPlugin.errorStatus("Error launching selected configuration.", ex);
+			logger.log(errorStatus);
+		}
+
+		RunHelperDialog.this.close();
 	}
 
 }
