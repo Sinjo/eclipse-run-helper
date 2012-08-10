@@ -16,6 +16,8 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -89,6 +91,24 @@ public class RunHelperDialog extends PopupDialog {
 			}
 		});
 
+		table.addKeyListener(new KeyAdapter() {
+
+			@Override
+			public void keyPressed(final KeyEvent e) {
+				if (e.keyCode == SWT.CR || e.keyCode == SWT.LF) {
+					final ILaunchConfiguration launchConfiguration = (ILaunchConfiguration) table.getSelection()[0].getData();
+					try {
+						launchConfiguration.launch(ILaunchManager.RUN_MODE, null);
+						RunHelperDialog.this.close();
+					} catch (final CoreException ex) {
+						final ILog logger = RunHelperPlugin.getDefault().getLog();
+						final IStatus errorStatus = RunHelperPlugin.errorStatus("Error launching selected configuration.", ex);
+						logger.log(errorStatus);
+					}
+				}
+			}
+		});
+
 		// Needed so that eclipse updates table based on our label providers
 		tableViewer.refresh();
 
@@ -96,6 +116,8 @@ public class RunHelperDialog extends PopupDialog {
 		table.getColumn(1).pack();
 
 		composite.pack();
+
+		table.setSelection(0);
 
 		return composite;
 	}
