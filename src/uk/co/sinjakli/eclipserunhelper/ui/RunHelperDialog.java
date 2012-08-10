@@ -169,8 +169,15 @@ public class RunHelperDialog extends PopupDialog {
 		final Composite parent = getParentShell();
 		final Rectangle parentBounds = parent.getBounds();
 
-		return new Point(parentBounds.width + parent.getLocation().x- initialSize.x - 10 ,
-				parentBounds.height + parent.getLocation().y - initialSize.y - 10);
+		final int padding = 10;
+
+		final int absoluteParentRightEdge = parentBounds.width + parent.getLocation().x;
+		final int absoluteParentBottomEdge = parentBounds.height + parent.getLocation().y;
+
+		final int initialX = absoluteParentRightEdge - initialSize.x - padding;
+		final int initialY = absoluteParentBottomEdge - initialSize.y - padding;
+
+		return new Point(initialX, initialY);
 	}
 
 	@Override
