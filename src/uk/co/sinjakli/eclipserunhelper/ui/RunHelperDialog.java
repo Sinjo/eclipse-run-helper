@@ -2,7 +2,6 @@ package uk.co.sinjakli.eclipserunhelper.ui;
 
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import org.eclipse.core.runtime.CoreException;
@@ -38,11 +37,11 @@ import uk.co.sinjakli.eclipserunhelper.RunHelperPlugin;
 
 public class RunHelperDialog extends PopupDialog {
 
-	private final Map<ILaunchConfiguration, String> availableLaunches;
+	private final Map<String, ILaunchConfiguration> availableLaunches;
 	private final ILog logger;
 	private final Set<Image> disposableImages;
 
-	public RunHelperDialog(final Shell parent, final Map<ILaunchConfiguration, String> availableLaunches) {
+	public RunHelperDialog(final Shell parent, final Map<String, ILaunchConfiguration> availableLaunches) {
 
 		super(parent, PopupDialog.INFOPOPUP_SHELLSTYLE, true, false,
 				false, false, false, null, null);
@@ -74,13 +73,15 @@ public class RunHelperDialog extends PopupDialog {
 		launchNameColumnViewer.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(final Object element) {
-				final ILaunchConfiguration launchConfiguration = (ILaunchConfiguration) element;
+				final String keyString = (String) element;
+				final ILaunchConfiguration launchConfiguration = availableLaunches.get(keyString);
 				return "Run " + launchConfiguration.getName();
 			}
 
 			@Override
 			public Image getImage(final Object element) {
-				final ILaunchConfiguration launchConfiguration = (ILaunchConfiguration) element;
+				final String keyString = (String) element;
+				final ILaunchConfiguration launchConfiguration = availableLaunches.get(keyString);
 				try {
 					final ILaunchConfigurationType launchConfigurationType = launchConfiguration.getType();
 					final Image launchImage = DebugUITools.getDefaultImageDescriptor(launchConfigurationType).createImage(true);
@@ -98,7 +99,8 @@ public class RunHelperDialog extends PopupDialog {
 		keyBindingColumnViewer.setLabelProvider(new ColumnLabelProvider() {
 			@Override
 			public String getText(final Object element) {
-				return availableLaunches.get(element);
+				final String keyString = (String) element;
+				return keyString;
 			}
 		});
 
@@ -107,7 +109,8 @@ public class RunHelperDialog extends PopupDialog {
 			@Override
 			public void doubleClick(final DoubleClickEvent event) {
 				final IStructuredSelection selection = (IStructuredSelection) event.getSelection();
-				final ILaunchConfiguration launchConfiguration = (ILaunchConfiguration) selection.getFirstElement();
+				final String keyString = (String) selection.getFirstElement();
+				final ILaunchConfiguration launchConfiguration = availableLaunches.get(keyString);
 				launchAndCloseDialog(launchConfiguration);
 			}
 		});
@@ -118,10 +121,13 @@ public class RunHelperDialog extends PopupDialog {
 			public void keyPressed(final KeyEvent e) {
 				if (isEnterKey(e.keyCode)) {
 					final TableItem tableSelection = table.getSelection()[0];
-					final ILaunchConfiguration launchConfiguration = (ILaunchConfiguration) tableSelection.getData();
+					final String keyString = (String) tableSelection.getData();
+					final ILaunchConfiguration launchConfiguration = availableLaunches.get(keyString);
 					launchAndCloseDialog(launchConfiguration);
-				} else {
+				} else if (availableLaunches.containsKey(String.valueOf(e.character))) {
 					launchByCharacter(e.character);
+				} else {
+					super.keyPressed(e);
 				}
 			}
 
@@ -156,12 +162,8 @@ public class RunHelperDialog extends PopupDialog {
 
 	private void launchByCharacter(final char keyCharacter) {
 		final String keyString = String.valueOf(keyCharacter);
-		for (final Entry<ILaunchConfiguration, String> launchBinding : availableLaunches.entrySet()) {
-			if (launchBinding.getValue().equals(keyString)) {
-				launchAndCloseDialog(launchBinding.getKey());
-			}
-		}
-
+		final ILaunchConfiguration launchConfiguration = availableLaunches.get(keyString);
+		launchAndCloseDialog(launchConfiguration);
 	}
 
 	@Override
