@@ -8,6 +8,11 @@
             description="Command which displays the Launch Helper dialog"
             id="uk.co.sinjakli.eclipserunhelper.displayRunHelper"
             name="Display Run Helper">
+         <commandParameter
+               id="uk.co.sinjakli.eclipserunhelper.launchType"
+               name="Launch Type"
+               optional="false">
+         </commandParameter>
       </command>
    </extension>
    <extension
@@ -17,6 +22,20 @@
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+M2+F11">
+         <parameter
+               id="uk.co.sinjakli.eclipserunhelper.launchType"
+               value="RUN">
+         </parameter>
+      </key>
+      <key
+            commandId="uk.co.sinjakli.eclipserunhelper.displayRunHelper"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M2+F11">
+         <parameter
+               id="uk.co.sinjakli.eclipserunhelper.launchType"
+               value="DEBUG">
+         </parameter>
       </key>
    </extension>
 

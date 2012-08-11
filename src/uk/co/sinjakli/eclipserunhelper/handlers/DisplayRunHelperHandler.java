@@ -33,6 +33,14 @@ public class DisplayRunHelperHandler extends AbstractHandler {
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		logger = RunHelperPlugin.getDefault().getLog();
 
+		final String launchTypeParemeter = event.getParameter("uk.co.sinjakli.eclipserunhelper.launchType");
+		final String launchType;
+		if (launchTypeParemeter.equals("RUN")) {
+			launchType = ILaunchManager.RUN_MODE;
+		} else {
+			launchType = ILaunchManager.DEBUG_MODE;
+		}
+
 		final ILaunchManager launchManager = DebugPlugin.getDefault().getLaunchManager();
 		final LaunchConfigurationManager launchConfigurationManager = DebugUIPlugin.getDefault().getLaunchConfigurationManager();
 
@@ -64,7 +72,7 @@ public class DisplayRunHelperHandler extends AbstractHandler {
 						.getActiveWorkbenchWindow().getShell();
 
 				final RunHelperDialog dialog = new RunHelperDialog(activeShell,
-						availableLaunches);
+						availableLaunches, launchType);
 
 				dialog.open();
 			}

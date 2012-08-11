@@ -38,15 +38,17 @@ import uk.co.sinjakli.eclipserunhelper.RunHelperPlugin;
 public class RunHelperDialog extends PopupDialog {
 
 	private final Map<String, ILaunchConfiguration> availableLaunches;
+	private final String launchType;
 	private final ILog logger;
 	private final Set<Image> disposableImages;
 
-	public RunHelperDialog(final Shell parent, final Map<String, ILaunchConfiguration> availableLaunches) {
+	public RunHelperDialog(final Shell parent, final Map<String, ILaunchConfiguration> availableLaunches, final String launchType) {
 
 		super(parent, PopupDialog.INFOPOPUP_SHELLSTYLE, true, false,
 				false, false, false, null, null);
 
 		this.availableLaunches = availableLaunches;
+		this.launchType = launchType;
 		logger = RunHelperPlugin.getDefault().getLog();
 		disposableImages = new HashSet<Image>();
 	}
@@ -75,7 +77,14 @@ public class RunHelperDialog extends PopupDialog {
 			public String getText(final Object element) {
 				final String keyString = (String) element;
 				final ILaunchConfiguration launchConfiguration = availableLaunches.get(keyString);
-				return "Run " + launchConfiguration.getName();
+				final String launchPrefix;
+				if (launchType.equals(ILaunchManager.RUN_MODE)){
+					launchPrefix = "Run ";
+				} else {
+					launchPrefix = "Debug ";
+				}
+
+				return launchPrefix + launchConfiguration.getName();
 			}
 
 			@Override
@@ -151,7 +160,7 @@ public class RunHelperDialog extends PopupDialog {
 
 	private void launchAndCloseDialog(final ILaunchConfiguration launchConfiguration) {
 		try {
-			launchConfiguration.launch(ILaunchManager.RUN_MODE, null);
+			launchConfiguration.launch(launchType, null);
 		} catch (final CoreException ex) {
 			final IStatus errorStatus = RunHelperPlugin.errorStatus("Error launching selected configuration.", ex);
 			logger.log(errorStatus);
