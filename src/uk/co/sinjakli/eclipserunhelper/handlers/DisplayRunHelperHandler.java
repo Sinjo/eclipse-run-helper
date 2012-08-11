@@ -26,6 +26,7 @@ import uk.co.sinjakli.eclipserunhelper.ui.RunHelperDialog;
 @SuppressWarnings("restriction")
 public class DisplayRunHelperHandler extends AbstractHandler {
 
+	private static final int MAX_RECENT_LAUNCHES = 5;
 	private ILog logger;
 
 	@Override
@@ -44,6 +45,10 @@ public class DisplayRunHelperHandler extends AbstractHandler {
 		for (final ILaunchConfiguration launchConfiguration : launchHistory) {
 			availableLaunches.put(String.valueOf(launchIndex), launchConfiguration);
 			launchIndex++;
+
+			if (launchIndex > MAX_RECENT_LAUNCHES) {
+				break;
+			}
 		}
 
 		final ILaunchConfiguration lastJUnitLaunch = getLastJunitLaunch(launchManager, launchHistory);
