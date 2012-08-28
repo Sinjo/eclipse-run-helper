@@ -1,18 +1,30 @@
 # Eclipse Run Helper
 
-An Eclipse plug-in which provides superior keyboard launching support
+Your Eclipse run history, from the keyboard
 
-## Superior to what?
+## What does it do?
 
-The current keyboard launching options. This includes:
+It gives you easy keyboard-driven access to the last few things you ran.
 
-* Ctrl+F11 or F11 - Run/Debug respectively. By default tries to run your current editor. Can be set to fall back to the last thing you launched or even to only ever run the last thing you launched.
-* Alt+Shift+X or Alt+Shift+D - Run/Debug respectively. Gives you a bunch of launch options for your current selection. Seems to remember the last thing you launched for each type if the current selection doesn't fit.
+## Great. How do I install it?
 
-## Superior in what way?
+Just grab the plug-in [here](https://github.com/downloads/Sinjo/eclipse-run-helper/uk.co.sinjakli.eclipserunhelper-1.0.0.jar) and put it in the dropins folder of your Eclipse installation.
 
-* Provide the most useful launching options. Initial ideas:
-    * Your last 5 launches (or some other arbitrary number)
-    * Your previous JUnit launch
-	* Arbitrary launch config (let the user bind to a key in preferences)
-* Provide all of these from one keyboard shortcut which brings up an Alt+Shift+X-esque menu
+## How do I use it?
+
+Press Ctrl+Shift+F11 for Run, or Shift+F11 for Debug. Then:
+
+* A number from 1 to 5 to select an item from your history
+* The letter "t" to re-run your last (JUnit) test run
+
+## I've got a problem. Help!
+
+If you've found a potential bug, or would like to request a feature then the best place is (the issue tracker)[https://github.com/Sinjo/eclipse-run-helper/issues]. If you want to discuss something then feel free to send me a message.
+
+## What's next?
+
+I've got a few ideas for what I'd like to add, probably in this order:
+
+* Restart web server (Tomcat/Jetty/other)
+* Open run/debug configuration dialogs
+* User defined keybindings to specific launch configurations
