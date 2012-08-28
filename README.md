@@ -19,7 +19,7 @@ Press Ctrl+Shift+F11 for Run, or Shift+F11 for Debug. Then:
 
 ## I've got a problem. Help!
 
-If you've found a potential bug, or would like to request a feature then the best place is (the issue tracker)[https://github.com/Sinjo/eclipse-run-helper/issues]. If you want to discuss something then feel free to send me a message.
+If you've found a potential bug, or would like to request a feature then the best place is [the issue tracker](https://github.com/Sinjo/eclipse-run-helper/issues). If you want to discuss something then feel free to send me a message.
 
 ## What's next?
 
