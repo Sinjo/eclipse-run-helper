@@ -13,7 +13,7 @@
 
 	<groupId>uk.co.sinjakli</groupId>
 	<artifactId>uk.co.sinjakli.eclipserunhelper</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.1</version>
 	<packaging>eclipse-plugin</packaging>
 
 	<build>

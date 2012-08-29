@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Eclipse Run Helper
 Bundle-SymbolicName: uk.co.sinjakli.eclipserunhelper;singleton:=true
-Bundle-Version: 1.0.1.qualifier
+Bundle-Version: 1.0.1
 Bundle-Activator: uk.co.sinjakli.eclipserunhelper.RunHelperPlugin
 Bundle-Vendor: Chris Sinjakli
 Require-Bundle: org.eclipse.ui,
