@@ -4,6 +4,7 @@
    <extension
          point="org.eclipse.ui.commands">
       <command
+            categoryId="uk.co.sinjakli.eclipserunhelper.commands.category"
             defaultHandler="uk.co.sinjakli.eclipserunhelper.handlers.DisplayRunHelperHandler"
             description="Command which displays the Launch Helper dialog"
             id="uk.co.sinjakli.eclipserunhelper.displayRunHelper"
@@ -11,9 +12,15 @@
          <commandParameter
                id="uk.co.sinjakli.eclipserunhelper.launchType"
                name="Launch Type"
-               optional="false">
+               optional="false"
+               values="uk.co.sinjakli.eclipserunhelper.ui.RunHelperCommandParameterValues">
          </commandParameter>
       </command>
+      <category
+            description="Run Helper Commands Category"
+            id="uk.co.sinjakli.eclipserunhelper.commands.category"
+            name="Run Helper">
+      </category>
    </extension>
    <extension
          point="org.eclipse.ui.bindings">
