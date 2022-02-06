@@ -1,5 +1,7 @@
 # Eclipse Run Helper
 
+**Note: this project is unmaintained**
+
 Your Eclipse run history, from the keyboard
 
 ## What does it do?
